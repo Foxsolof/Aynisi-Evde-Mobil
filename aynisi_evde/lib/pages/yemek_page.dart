@@ -10,8 +10,14 @@ class YemekPage extends StatelessWidget {
         title: const Text('Yemekler Sayfası'),
         backgroundColor: Colors.green.shade400,
       ),
-      body: const Center(
-        child: Text('Burası Yemek Sayfası!', style: TextStyle(fontSize: 22)),
+      body: Center(
+        child:Column(mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text("Doner",selectionColor: Colors.deepPurple ,),
+          //Image.asset('Assets/images/doner.png', width: 50,),
+          Image.network("https://yemeksepeti.dhmedia.io/image/fd-tr/Products/24324517.jpg",width: 200,)
+        ],
+        )
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
