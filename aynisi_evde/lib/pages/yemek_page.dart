@@ -42,10 +42,10 @@ String Malzemeler(){ // Bu malzemelerin başına emoji koyarak listemek için ku
           Text("Doner",style: TextStyle(fontSize: 22,color: Colors.deepPurpleAccent)),
           //Image.asset('Assets/images/doner.png', width: 50,),
           Image.network("https://yemeksepeti.dhmedia.io/image/fd-tr/Products/24324517.jpg",width: 200,),// Doner fotoğrafı
-          Container( width: 400,  // kutuyu ayarlayan yer
+  Container( width: 400,  // kutuyu ayarlayan yer
   //height: 250, 
-  padding: const EdgeInsets.all(16.0),
-  decoration: BoxDecoration(
+    padding: const EdgeInsets.all(16.0),
+    decoration: BoxDecoration(
     color: Colors.grey.shade200, 
     borderRadius: BorderRadius.circular(12), 
     border: Border.all(color: Colors.deepPurpleAccent, width: 1)),
