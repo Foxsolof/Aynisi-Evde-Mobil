@@ -24,7 +24,7 @@ class AnaSayfa extends StatelessWidget {
 
 @override
 Widget build(BuildContext context) => Scaffold(
-  body: const anasayfa_content(),
+  body: const Anasayfa_content(),
   // Alt buton
     floatingActionButton: FloatingActionButton(
       onPressed: () {
@@ -34,8 +34,8 @@ Widget build(BuildContext context) => Scaffold(
           builder: (context) => const YemekPage(),),);},
       child: const Text('Yemek'),),);}
 
-class anasayfa_content extends StatelessWidget {
-  const anasayfa_content({super.key});
+class Anasayfa_content extends StatelessWidget {
+  const Anasayfa_content({super.key});
 
 @override
 //arkaplan
