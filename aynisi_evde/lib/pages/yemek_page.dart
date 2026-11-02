@@ -1,14 +1,28 @@
 import 'dart:convert';
+import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'recipe.dart'; 
 
+
 // 1. API Servisi (Fonksiyon adı ve veri tipi güncellendi)
 class ApiServisi {
-  static const _adres = 'https://localhost:7100/api/Recipes';
-  
+  //static const _adres = 'https://10.0.2.2:7100/api/Recipes'; //  'https://localhost:7100/api/Recipes';
+  static String getadres(){
+   if(kIsWeb){
+    return 'https://localhost:7100/api/Recipes';
+   }
+   else if(Platform.isAndroid){
+      return 'https://10.0.2.2:7100/api/Recipes';
+   }
+   else{
+      return 'https://localhost:7100/api/Recipes';
+   }
+  }
   static Future<List<Recipe>> tarifleriGetir() async {
-    final cevap = await http.get(Uri.parse(_adres));
+    
+    final cevap = await http.get(Uri.parse(getadres()));
     if (cevap.statusCode != 200) {
       throw Exception('Sunucu hatası: ${cevap.statusCode}');
     }
