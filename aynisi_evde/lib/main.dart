@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'pages/yemek_page.dart';
+import 'pages/addrec.dart';
 class DevHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
@@ -31,7 +32,7 @@ class AnaSayfa extends StatelessWidget {
 
 @override
 Widget build(BuildContext context) => Scaffold(
-  body: const Anasayfa_content(),
+  body: const Anasayfa_content(), 
   // Alt buton
     floatingActionButton: FloatingActionButton(
       onPressed: () {
@@ -89,5 +90,14 @@ Widget build(BuildContext context) => Container(
                       Icons.play_circle_outline,
                       size: 72,
                       color: Colors.white,),),),
-                      ),),),),],),), );
+                      ),),),),
+                      IconButton(onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+          builder: (context) => const YemekEklePage(),),);}, icon: const Icon(Icons.airlines))
+                      ]
+                      
+                      ),
+                      ), );
 }
