@@ -20,17 +20,19 @@ class ApiServisi {
       return 'https://localhost:7100/api/Recipes';
    }
   }
-  static Future<bool> tariflereEkle(String recipeName, String recipeVideoUrl) async {
+  static Future<bool> tariflereEkle(String recipeName, String recipeVideoUrl,String recipetex,List<Ingredient> malzemeler) async {
    try {
     // 1. getadres() eğer Future dönüyorsa await ekleyin
     final String address = getadres(); 
     final Uri url = Uri.parse(address);
 
     // 2. Map Yapısı (Backend Modelindeki alan isimleriyle birebir aynı olmalı)
-    final Map<String, dynamic> recipeData = {
-      'recipe_name': recipeName,
-      'recipe_video': recipeVideoUrl,
-    };
+    Recipe recipeData = Recipe(
+  recipeId: 0,
+  recipeName: recipeName,
+  recipeText: recipetex,
+  ingredients: malzemeler,
+);
 
     // 3. HTTP POST İsteği
     final response = await http.post(
@@ -168,7 +170,7 @@ Text("Yemek Adı:", style: const TextStyle(fontSize: 22, color: Colors.deepPurpl
         border: OutlineInputBorder(),
       ),
     ),),
-                       TextButton(onPressed: () async{print(recipename_control.text); bool sonuc =await ApiServisi.tariflereEkle('aa','aa');}, child: Text("TarifEkle", style: const TextStyle(fontSize: 18, color: Colors.deepPurpleAccent, fontWeight: FontWeight.bold)))
+                       TextButton(onPressed: () async{print(recipename_control.text); bool sonuc =await ApiServisi.tariflereEkle('aa','aa','aa',const[]);}, child: Text("TarifEkle", style: const TextStyle(fontSize: 18, color: Colors.deepPurpleAccent, fontWeight: FontWeight.bold)))
                       ],
                     ),
                   ),

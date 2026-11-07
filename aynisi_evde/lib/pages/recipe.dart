@@ -9,6 +9,7 @@ class Ingredient {
     required this.unit,
   });
 
+
   factory Ingredient.fromJson(Map<String, dynamic> json) {
     return Ingredient(
       name: json['name'] as String? ?? '',
@@ -16,7 +17,15 @@ class Ingredient {
       unit: json['unit'] as String? ?? '',
     );
   }
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'amount': amount,
+      'unit': unit,
+    };
+  }
 }
+
 
 class Recipe {
   final int recipeId;
@@ -41,5 +50,14 @@ class Recipe {
               .toList() ??
           [],
     );
+  }
+  Map<String, dynamic> toJson() {
+    return {
+      'recipe_id': recipeId,
+      'recipe_name': recipeName,
+      'recipe': recipeText,
+      // Listeyi otomatik JSON Map listesine dönüştürür
+      'ingredients': ingredients.map((e) => e.toJson()).toList(), 
+    };
   }
 }
