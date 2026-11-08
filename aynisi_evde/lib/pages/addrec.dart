@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'recipe.dart'; 
 
 
-// 1. API Servisi (Fonksiyon adı ve veri tipi güncellendi)
+
 class ApiServisi {
   //static const _adres = 'https://10.0.2.2:7100/api/Recipes'; //  'https://localhost:7100/api/Recipes';
   static String getadres(){
@@ -22,11 +22,11 @@ class ApiServisi {
   }
   static Future<bool> tariflereEkle(String recipeName, String recipeVideoUrl,String recipetex,List<Ingredient> malzemeler) async {
    try {
-    // 1. getadres() eğer Future dönüyorsa await ekleyin
+    // 1. getadres() hangi adres üzerinden döneceği
     final String address = getadres(); 
     final Uri url = Uri.parse(address);
 
-    // 2. Map Yapısı (Backend Modelindeki alan isimleriyle birebir aynı olmalı)
+    // 2. Map Yapısı gönderilecek veri için
     Recipe recipeData = Recipe(
   recipeId: 0,
   recipeName: recipeName,
@@ -44,7 +44,7 @@ class ApiServisi {
       body: jsonEncode(recipeData),
     );
 
-    // Başarılı durum kodları (200 OK veya 201 Created)
+    // Response durumuna bak
     if (response.statusCode == 200 || response.statusCode == 201) {
       return true;
     } else {
@@ -170,7 +170,7 @@ Text("Yemek Adı:", style: const TextStyle(fontSize: 22, color: Colors.deepPurpl
         border: OutlineInputBorder(),
       ),
     ),),
-                       TextButton(onPressed: () async{print(recipename_control.text); bool sonuc =await ApiServisi.tariflereEkle('aa','aa','aa',const[]);}, child: Text("TarifEkle", style: const TextStyle(fontSize: 18, color: Colors.deepPurpleAccent, fontWeight: FontWeight.bold)))
+                       TextButton(onPressed: () async{print(recipename_control.text); bool sonuc =await ApiServisi.tariflereEkle(recipename_control.text,recipevideo_control.text,reciperecp_control.text,const[]);}, child: Text("TarifEkle", style: const TextStyle(fontSize: 18, color: Colors.deepPurpleAccent, fontWeight: FontWeight.bold)))
                       ],
                     ),
                   ),
