@@ -106,7 +106,7 @@ void dispose(){
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   
-                  Image.network("https://yemeksepeti.dhmedia.io/image/fd-tr/Products/24324517.jpg", width: 200),
+                  //Image.network("https://yemeksepeti.dhmedia.io/image/fd-tr/Products/24324517.jpg", width: 200), -->Foto eklenirse buradaydı
                   const SizedBox(height: 10),
                   Container(
                     width: 400,

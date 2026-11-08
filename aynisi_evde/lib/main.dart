@@ -27,20 +27,54 @@ class MyApp extends StatelessWidget {
       );
 }
 
-class AnaSayfa extends StatelessWidget {
+class AnaSayfa extends StatefulWidget {
   const AnaSayfa({super.key});
 
-@override
-Widget build(BuildContext context) => Scaffold(
-  body: const Anasayfa_content(), 
-  // Alt buton
-    floatingActionButton: FloatingActionButton(
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-          builder: (context) => const YemekPage(),),);},
-      child: const Text('Yemek'),),);}
+ State<AnaSayfa> createState() => _AnaSayfaState();
+}
+
+class _AnaSayfaState extends State<AnaSayfa> {
+  int seciliSekme = 0;
+//alt sayfa kısımmı
+  @override
+  Widget build(BuildContext context) => Scaffold(
+    body: IndexedStack(
+      index: seciliSekme,
+      children: const [
+        Anasayfa_content(),
+        YemekPage(),
+        YemekEklePage(),
+        SizedBox.shrink(),
+        SizedBox.shrink(),
+      ],
+    ),
+
+    // Alt menü aynı bırakıldı.
+    bottomNavigationBar: NavigationBar(
+      selectedIndex: seciliSekme,
+      onDestinationSelected: (i) => setState(() => seciliSekme = i),
+      destinations: const [
+        NavigationDestination(
+          icon: Icon(Icons.home_outlined),
+          selectedIcon: Icon(Icons.home),
+          label: 'Ana Sayfa',
+        ),
+        NavigationDestination(
+          icon: Icon(Icons.restaurant_menu_outlined),
+          selectedIcon: Icon(Icons.restaurant_menu),
+          label: 'Yemek',
+        ),
+         NavigationDestination(
+          icon: Icon(Icons.hdr_plus),
+          selectedIcon: Icon(Icons.hdr_plus),
+          label: 'tarif ekle',
+        ),
+        NavigationDestination(icon: Icon(Icons.access_alarm), label: ''),
+        NavigationDestination(icon: Icon(Icons.access_alarm), label: ''),
+      ],
+    ),
+  );
+}
 
 class Anasayfa_content extends StatelessWidget {
   const Anasayfa_content({super.key});
