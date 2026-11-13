@@ -45,6 +45,14 @@ class _YemekPageState extends State<YemekPage> {
   
   late Future<List<Recipe>> futureTarifler;
 
+final arama = TextEditingController();
+
+@override
+void dispose(){
+  arama.dispose();
+  
+  super.dispose();
+}
   @override
   void initState() {
     super.initState();
@@ -100,16 +108,46 @@ class _YemekPageState extends State<YemekPage> {
             return const Center(child: Text("Hiç yemek tarifi bulunamadı."));
           }
 
-          
-          final yemek = snapshot.data![0]; // Burada 0 yerine 1,2,3 felan yazarsanız ona göre gelen 
+          final tarifler = snapshot.data!;
+          final yemek;
+          if(arama==null || arama.text==null ||arama.text=="")
+          yemek = tarifler[0]; // Burada 0 yerine 1,2,3 felan yazarsanız ona göre gelen 
           //Yemek değişiyor ama fotoğraf değişmiyor sonra video olacağı için çok dikkate alınmadı.!
+          else{
+            final bulunanlar= tarifler.where((t)=>t.recipeName.toUpperCase().contains(arama.text.toUpperCase())).toList();
+            if(bulunanlar.isNotEmpty)
+            yemek=bulunanlar.first;
+            else
+          yemek=tarifler[0];
+          }
 
           return Center(
             child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(yemek.recipeName, style: const TextStyle(fontSize: 22, color: Colors.deepPurpleAccent, fontWeight: FontWeight.bold)),
+                  Row(mainAxisAlignment: MainAxisAlignment.center,children: [
+
+SizedBox(width: 150,child: 
+                  TextField(controller: arama,
+                  maxLines: null,
+                  onSubmitted: (value) {
+                    setState(() {
+                      
+                    });
+                  },
+      decoration: InputDecoration.collapsed(
+        hintText: 'Yemek Adini girin',
+        border: OutlineInputBorder(),
+      ),
+    ),), 
+    TextButton(onPressed:(){ setState(() {
+      
+    });}, child: Text("Ara", style: const TextStyle(fontSize: 18, color: Colors.deepPurpleAccent, fontWeight: FontWeight.bold))),
+   
+
+                  ],),
+                                 Text(yemek.recipeName, style: const TextStyle(fontSize: 22, color: Colors.deepPurpleAccent, fontWeight: FontWeight.bold)),
                   const SizedBox(height: 10),
                   Image.network("https://yemeksepeti.dhmedia.io/image/fd-tr/Products/24324517.jpg", width: 200),
                   const SizedBox(height: 10),
