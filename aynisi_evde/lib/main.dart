@@ -1,6 +1,8 @@
 import 'dart:io';
+import 'package:aynisi_evde/pages/homesearchpage.dart';
 import 'package:flutter/material.dart';
 import 'pages/yemek_page.dart';
+import 'pages/homesearchpage.dart';
 import 'pages/addrec.dart';
 class DevHttpOverrides extends HttpOverrides {
   @override
@@ -34,17 +36,32 @@ class AnaSayfa extends StatefulWidget {
 }
 
 class _AnaSayfaState extends State<AnaSayfa> {
+  String? secilenArananYemekAdi;
   int seciliSekme = 0;
 //alt sayfa kısımmı
   @override
   Widget build(BuildContext context) => Scaffold(
     body: IndexedStack(
       index: seciliSekme,
-      children: const [
+      children:  [
         Anasayfa_content(),
-        YemekPage(),
+        YemekPage(Ilkyemek:secilenArananYemekAdi
+        ,onSekmeDegistir: (yeniIndex,{String? arananYemek}){setState(() {
+          seciliSekme=yeniIndex;
+          if (arananYemek != null) {
+                  secilenArananYemekAdi = arananYemek;
+          }
+        });
+        },),
         YemekEklePage(),
-        SizedBox.shrink(),
+        Homesearch(Ilkyemek:secilenArananYemekAdi
+        ,onSekmeDegistir: (yeniIndex,{String? arananYemek}){setState(() {
+          seciliSekme=yeniIndex;
+          if (arananYemek != null) {
+                  secilenArananYemekAdi = arananYemek;
+          }
+        });
+        },),
         SizedBox.shrink(),
       ],
     ),
@@ -69,7 +86,11 @@ class _AnaSayfaState extends State<AnaSayfa> {
           selectedIcon: Icon(Icons.hdr_plus),
           label: 'tarif ekle',
         ),
-        NavigationDestination(icon: Icon(Icons.access_alarm), label: ''),
+         NavigationDestination(
+          icon: Icon(Icons.search),
+          selectedIcon: Icon(Icons.search),
+          label: 'Ara',
+        ),
         NavigationDestination(icon: Icon(Icons.access_alarm), label: ''),
       ],
     ),

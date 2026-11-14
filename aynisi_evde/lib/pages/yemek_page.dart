@@ -35,7 +35,9 @@ class ApiServisi {
 
 
 class YemekPage extends StatefulWidget {
-  const YemekPage({super.key});
+  final Function (int index, {String? arananYemek}) onSekmeDegistir;
+  final String? Ilkyemek;
+  const YemekPage({super.key,this.Ilkyemek,required this.onSekmeDegistir});
 
   @override
   State<YemekPage> createState() => _YemekPageState();
@@ -46,6 +48,20 @@ class _YemekPageState extends State<YemekPage> {
   late Future<List<Recipe>> futureTarifler;
 
 final arama = TextEditingController();
+String _aramaMetni="";
+@override
+void didUpdateWidget(covariant YemekPage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // Kullanıcı HomeSearchten bu sayfaya gelirse güncelle geçmemize yarar
+    if (widget.Ilkyemek != oldWidget.Ilkyemek) {
+      setState(() {
+        _aramaMetni = widget.Ilkyemek ?? "";
+        arama.text = _aramaMetni;
+      });
+    }
+  }
+
+
 
 @override
 void dispose(){
@@ -57,6 +73,7 @@ void dispose(){
   void initState() {
     super.initState();
     futureTarifler = ApiServisi.tarifleriGetir(); 
+    
   }
 
   
@@ -187,7 +204,7 @@ SizedBox(width: 150,child:
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pop(context);
+          widget.onSekmeDegistir(2);
         },
         child: const Text('Geri'),
       ),
